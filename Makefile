@@ -1,4 +1,3 @@
-
 SUBDIRS  := $(wildcard labs/lab-*/)
 
 all: $(SUBDIRS) 
