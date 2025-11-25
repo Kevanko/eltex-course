@@ -12,7 +12,7 @@ void task1(unsigned int num, char* result) {
     unsigned int  i = 0;
 
     // Устанавливаем маску на старший бит
-    unsigned int mask = 1 << (MAX_BITS - 1);
+    unsigned int mask = 1U << (MAX_BITS - 1);
 
     // Пропускаем ведущие нули
     while(!(mask & num)){
