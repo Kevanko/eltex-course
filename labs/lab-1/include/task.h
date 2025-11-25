@@ -2,6 +2,9 @@
 #include "stdio.h"
 #include "stdlib.h"
 
+#define MAX_BITS (sizeof(int) * 8)
+#define BUFFER_SIZE (MAX_BITS + 1)
+
 void task1(unsigned int num, char* result);
 void task1_check();
 

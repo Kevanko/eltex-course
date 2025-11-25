@@ -1,9 +1,6 @@
 #include <string.h>
 #include "task.h"
 
-#define MAX_BITS (sizeof(unsigned int) * 8)
-#define BUFFER_SIZE (MAX_BITS + 1)
-
 void task1(unsigned int num, char* result) {
     if(num == 0) {
         strcpy(result, "0");

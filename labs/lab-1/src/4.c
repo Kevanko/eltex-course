@@ -19,7 +19,7 @@ void task4_check(){
     printf("result: %u\n", result);
 
     // Debug
-    char* str = (char*)malloc(sizeof(char) * 32);
+    char* str = (char*)malloc(sizeof(char) * BUFFER_SIZE);
     task2(num, str);
     printf("before: %s\n", str);
 
