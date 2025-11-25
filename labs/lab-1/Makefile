@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -Iinclude
+CFLAGS := -Wall -Wextra -I include
 
 SRCS := $(wildcard src/*.c)
 BINS := $(patsubst src/%.c,bin/%,$(SRCS))
