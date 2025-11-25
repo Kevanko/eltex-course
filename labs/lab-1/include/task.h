@@ -8,5 +8,8 @@ void task1_check();
 void task2(int num, char* result);
 void task2_check();
 
-void task3();
-void task4();
+size_t task3(unsigned int num);
+void task3_check();
+
+unsigned int task4(unsigned int num, unsigned char byte);
+void task4_check();

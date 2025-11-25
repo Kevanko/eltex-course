@@ -9,7 +9,7 @@ void task1(unsigned int num, char* result) {
         strcpy(result, "0");
         return;
     }
-    unsigned int  i = 0;
+    unsigned int i = 0;
 
     // Устанавливаем маску на старший бит
     unsigned int mask = 1U << (MAX_BITS - 1);

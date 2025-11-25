@@ -15,8 +15,10 @@ int main(){
         task2_check();
         break;
     case 3:
+        task3_check();
         break;  
     case 4:
+        task4_check();
         break; 
 
     default:
