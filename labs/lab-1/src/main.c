@@ -12,6 +12,7 @@ int main(){
         task1_check();
         break;
     case 2:
+        task2_check();
         break;
     case 3:
         break;  

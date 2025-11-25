@@ -16,7 +16,10 @@ result: 110
 > (число вводится с клавиатуры).
 
 ```bash
-make run
+$ make run
+enter task num (1-4): 2
+enter -num: -15
+result: 11111111111111111111111111110001
 ```
 
 ## 3 задание
