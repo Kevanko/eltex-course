@@ -8,6 +8,12 @@
 
 ```bash
 $ make run
+enter task num (1-4): 1
+enter num: 5
+enter byte [AF, F0, 14]: F0
+result: 15728645
+Debug bytes (little-endian): 
+num-> 5 0 f0 0 
 ```
 
 ## 2 задание
@@ -16,6 +22,9 @@ $ make run
 
 ```bash
 $ make run
+enter task num (1-4): 2
+x = 5.000000, y = 6.000000
+Результат: 12.000000
 ```
 
 ## 3 задание
@@ -27,6 +36,8 @@ $ make run
 
 ```bash
 $ make run
+enter task num (1-4): 3
+arr -> 1 2 3 4 5 6 7 8 9 10 
 ```
 
 ## 4 задание
@@ -37,4 +48,16 @@ $ make run
 
 ```bash
 $ make run
+enter task num (1-4): 4
+enter str[32]: Eltex
+
+enter substr[32]: tex
+Found: tex
+
+$ make run
+enter task num (1-4): 4 
+enter str[32]: Eltex
+
+enter substr[32]: labs
+Found: (NULL)
 ```
