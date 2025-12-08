@@ -132,11 +132,11 @@ void abonent_find(char name[10]) {
 
 Пример:
 ```bash
-[0]      Abonent: alex telon 
+[0]      Абонент: alex telon 
          Tel: +43267
-[1]      Abonent: alex gamer 
+[1]      Абонент: alex gamer 
          Tel: +43245
-[2]      Abonent: leno lon 
+[2]      Абонент: leno lon 
          Tel: +43256
 ----Абонентский справочник [3 из 100]----
 1) Добавить абонента 
@@ -148,9 +148,9 @@ void abonent_find(char name[10]) {
 clear
 Введите имя абонента: alex
 clear
-[0]      Abonent: alex telon 
+[0]      Абонент: alex telon 
          Tel: +43267
-[1]      Abonent: alex gamer 
+[1]      Абонент: alex gamer 
          Tel: +43245
 ----Абонентский справочник [3 из 100]----
 1) Добавить абонента 

@@ -4,7 +4,7 @@ struct abonent g_abonents[ABONENTS_SIZE] = {0};
 uint g_size = 0;
 
 void abonent_print(uint id){
-    printf("[%d]\t Abonent: %s %s \n\t Tel: %s\n", 
+    printf("[%d]\t Абонент: %s %s \n\t tel: %s\n", 
                                     id, 
                                     g_abonents[id].name, 
                                     g_abonents[id].second_name,

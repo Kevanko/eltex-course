@@ -55,6 +55,7 @@ void abonent_handbook(){
         case 2: // Удаление абонента
             uint id;
             printf("Введите id абонента: " ); scanf("%u", &id);
+            clear_input(); 
 
             system("clear"); // Clear terminal
 
@@ -66,7 +67,8 @@ void abonent_handbook(){
         case 3:
             char name[10];
             printf("Введите имя абонента: " ); scanf("%9s", name);
-
+            clear_input(); 
+            
             system("clear"); // Clear terminal
             abonent_find(name);
             break;
