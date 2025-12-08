@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -I include
+CFLAGS := -Wall -Wextra -I include -Werror
 
 SRCS := $(wildcard src/*.c)
 BINS := $(patsubst src/%.c,bin/%,$(SRCS))
@@ -15,5 +15,11 @@ bin:
 run: bin/main
 	./$< $(ARGS)
 
+doc:
+	doxygen Doxyfile 
+
 clean:
 	rm -rf bin
+
+clean-doc:
+	rm -rf docs
