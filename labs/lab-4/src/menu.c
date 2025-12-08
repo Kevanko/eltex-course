@@ -20,17 +20,29 @@ void abonent_handbook(){
     while(menu_id != 5) {
         print_menu_tabs();
 
-        scanf("%u", &menu_id);
+        if(scanf("%u", &menu_id) != 1){
+            menu_id = 0;
+            clear_input(); // Если не символ очищает строку
+        }
+
         system("clear"); // Clear terminal
 
         switch (menu_id)
         {
-        case 1: // ADD ABONENT
+        case 1: // Добавление абонента
             struct abonent new_abonent;
 
-            printf("name[10]: " );         scanf("%9s", new_abonent.name);
-            printf("second_name[10]: " );  scanf("%9s", new_abonent.second_name);
-            printf("tel[10]: " );          scanf("%9s", new_abonent.tel);
+            printf("name[10]: " );         
+            scanf("%9s", new_abonent.name); 
+            clear_input(); // Если длина больше 10 очищает лишние символы
+
+            printf("second_name[10]: " );
+            scanf("%9s", new_abonent.second_name); 
+            clear_input();
+
+            printf("tel[10]: " );
+            scanf("%9s", new_abonent.tel);
+            clear_input();
 
             system("clear"); // Clear terminal
 
@@ -40,7 +52,7 @@ void abonent_handbook(){
 
             break;
 
-        case 2: // REMOVE ABONENT
+        case 2: // Удаление абонента
             uint id;
             printf("Введите id абонента: " ); scanf("%u", &id);
 
