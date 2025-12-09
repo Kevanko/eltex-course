@@ -47,6 +47,7 @@ Result ->
 
 ```bash
 $ make run
+enter task num (1-4): 4
 Result -> 
 1       2       3       4       5
 16      17      18      19      6
