@@ -41,18 +41,18 @@ void abonent_handbook();
 /**
  * @brief Добавить абонента в справочник
  * @param[in] data структура с данными нового абонента
- * @return `false` при успехе, `true` при переполнении
+ * @return 'false' при успехе, 'true' при переполнении
  * 
- * @note Проверяет: `g_size < ABONENTS_SIZE`. При успехе копирует `data` в `g_abonents[g_size]`.
+ * @note Проверяет: 'g_size < ABONENTS_SIZE'. При успехе копирует 'data' в 'g_abonents[g_size]'.
 */
 bool abonent_add(struct abonent data);
 
 /**
  * @brief Удалить абонента по ID
  * @param[in] id индекс абонента (0..g_size-1)
- * @return `false` при успехе, `true` при ошибке (ID вне диапазона)
+ * @return 'false' при успехе, 'true' при ошибке (ID вне диапазона)
  * 
- * @note Удаление за O(1): заменяет `id` на последний элемент, последний зануляется.
+ * @note Удаление за O(1): заменяет 'id' на последний элемент, последний зануляется.
 */
 bool abonent_remove(uint id);
 
@@ -60,7 +60,7 @@ bool abonent_remove(uint id);
  * @brief Найти всех абонентов по имени
  * @param[in] name искомое имя (до 10 байт)
  * 
- * @note Сравнение побайтовое (10 байт), не зависит от '\0'. Использует `strcmp10()`.
+ * @note Сравнение побайтовое (10 байт), не зависит от '\0'. Использует 'strcmp10()'.
  * @see strcmp10
 */
 void abonent_find(char name[10]);
@@ -68,7 +68,7 @@ void abonent_find(char name[10]);
 /**
  * @brief Вывести всех абонентов
  * 
- * Вызывает `abonent_print()` для каждого элемента `g_abonents[0..g_size-1]`.
+ * Вызывает 'abonent_print()' для каждого элемента 'g_abonents[0..g_size-1]'.
 */
 void abonent_printALL();
 
