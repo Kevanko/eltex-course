@@ -15,15 +15,16 @@
 
 
 
-# 2 Задание по шагам:
+##  Процесс выполнения:
 
 1.  С помощью команды disassemble main в GDB находим адрес инструкции, которая выводит сообщение об успешном входе. (0x4011d8)
-
+> Нужные нам строчки
+```c
 0x00000000004011bd <+39>:    jne    0x4011d8 <main+66>
 0x00000000004011d8 <+66>:    lea    0xe43(%rip),%rax  # "Access granted!"
-
+```
+> (gdb) disassemble 
 ```c
-(gdb) disassemble 
 Dump of assembler code for function main:
    0x0000000000401196 <+0>:     endbr64
    0x000000000040119a <+4>:     push   %rbp
@@ -52,8 +53,8 @@ End of assembler dump.
 
 2. Нужно найти адресс возврата функции: 
 
+> (gdb) disassemble 
 ```c
-(gdb) disassemble 
 Dump of assembler code for function IsPassOk:
    0x00000000004011ee <+0>:     endbr64
    0x00000000004011f2 <+4>:     push   %rbp
@@ -73,16 +74,18 @@ Dump of assembler code for function IsPassOk:
 ```
 
 > Вывели 16 байт регистра rbp
-```
+
+```bash
 (gdb) x/16xb $rbp
 0x7fffffffda90: 0xb0 0xda 0xff 0xff 0xff 0x7f 0x00 0x00  # RBP
 0x7fffffffda98: 0xb6 0x11 0x40 0x00 0x00 0x00 0x00 0x00  # Оригинальный Ret Address
-
 ```
 
-rbp + 8     Нужный нам адресс 0x4011b6 
-rbp         RBP
-rbp - 12    Массив Pass <- МЫ тут
+``` bash
+rbp + 8    # Нужный нам адресс 0x4011b6 
+rbp        # RBP
+rbp - 12   # Массив Pass <- МЫ тут
+```
 
 0x4011b6 нужно заменить на 0x4011d8 который мы нашли, при этом дописать еще 20 байт:
 
