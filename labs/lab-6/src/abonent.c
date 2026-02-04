@@ -99,15 +99,17 @@ bool abonent_remove(char name[10]) {
 void abonent_find(char name[10]) {
     struct node * current = g_abonents;
     int strcmp_result = -1;
+    bool found = false;
     /* Проходимся по списку пока не найдем имя */
     while (current != NULL) {
         strcmp_result = strcmp10(current->data.name, name);
         if(!strcmp_result) {
             abonent_print(current);
-            return;
+            found = true;
         }
         current = current->next;
     }
+    if (found) return;
     printf("Абонент \"%s\" не найден\n", name);
 }
 

@@ -1,6 +1,9 @@
 /**
 * @file abonent.h
 * @brief Заголовочный файл справочника абонентов
+*
+* Динамическое выделение памяти и способ хранения -
+* Двухсвязный список
 */
 
 #ifndef ABONENT_H
@@ -49,18 +52,19 @@ void abonent_handbook();
 /**
  * @brief Добавить абонента в справочник
  * @param[in] data структура с данными нового абонента
- * @return 'false' при успехе, 'true' при переполнении
+ * @return 'false' при успехе, 'true' при ошибке выделения памяти
  * 
- * @note Проверяет: 'g_size < ABONENTS_SIZE'. При успехе копирует 'data' в 'g_abonents[g_size]'.
+ * @note Выделяет память под узел с помощью malloc'.
 */
 bool abonent_add(struct abonent data);
 
 /**
- * @brief Удалить абонента по ID
- * @param[in] id индекс абонента (0..g_size-1)
- * @return 'false' при успехе, 'true' при ошибке (ID вне диапазона)
+ * @brief Удалить абонента по имени
+ * @param[in] name Имя абонента (char[10])
+ * @return 'false' при успехе, 'true' при ошибке
  * 
- * @note Удаление за O(1): заменяет 'id' на последний элемент, последний зануляется.
+ * @note Проходит по узлам до конца и сравнивает с помощью strcmp10 имена
+ * @see strcmp10
 */
 bool abonent_remove(char name[10]);
 
@@ -76,10 +80,22 @@ void abonent_find(char name[10]);
 /**
  * @brief Вывести всех абонентов
  * 
- * Вызывает 'abonent_print()' для каждого элемента 'g_abonents[0..g_size-1]'.
+ * Вызывает 'abonent_print()' для каждого элемента 'g_abonents'.
 */
 void abonents_print();
+
+/**
+ * @brief Получить число узлов
+ * 
+ * Проходится по узлам 'g_abonents' и подсчитывает их О(n).
+*/
 size_t get_abonents_size();
+
+/**
+ * @brief Очистка памяти
+ * 
+ * Меняет голову на NULL и очищает 'free()' все узлы
+*/
 void abonents_clear();
 
 #endif // ABONENT_H

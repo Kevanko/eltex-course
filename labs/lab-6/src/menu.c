@@ -16,37 +16,38 @@ void print_error_id(){
 void abonent_handbook(){
 
     uint menu_id = 0;
-    system("clear"); // Clear terminal
+    system("clear");
 
     while(menu_id != 5) {
         char name_abonent[10] = "";
+        /** Вывод действий **/
         print_menu_tabs();
 
+        /** Ввод номера меню **/
         if(scanf("%u", &menu_id) != 1){
             menu_id = 0;
-            clear_input(); // Если не символ очищает строку
+            clear_input();
         }
-
-        system("clear"); // Clear terminal
+        system("clear");
 
         switch (menu_id)
         {
-        case 1: // Добавление абонента
+        case 1: /** Добавление абонента **/
             struct abonent new_abonent = {0};
 
-            printf("name[10]: " );         
+            printf("name[10]: " );           /** Ввод имени **/
             scanf("%9s", new_abonent.name); 
-            clear_input(); // Если длина больше 10 очищает лишние символы
+            clear_input();
 
-            printf("second_name[10]: " );
+            printf("second_name[10]: " );    /** Ввод фамилии **/
             scanf("%9s", new_abonent.second_name); 
             clear_input();
 
-            printf("tel[10]: " );
+            printf("tel[10]: " );            /** Ввод номера **/
             scanf("%9s", new_abonent.tel);
             clear_input();
 
-            system("clear"); // Clear terminal
+            system("clear");
 
             if(!abonent_add(new_abonent)) {
                 printf(" Абонент \"%s\" был добавлен\n", new_abonent.name); // Log
@@ -55,7 +56,7 @@ void abonent_handbook(){
             break;
 
         case 2: /** Удаление абонента по Имени **/
-            printf("Введите Имя абонента: " ); scanf("%9s", name_abonent);
+            printf("Введите Имя абонента: " ); scanf("%9s", name_abonent); /** Ввод имени **/
             clear_input(); 
 
             system("clear"); 
@@ -72,13 +73,13 @@ void abonent_handbook(){
             system("clear"); 
             abonent_find(name_abonent);
             break;
-        case 4:
+        case 4: /** Вывод всех абонентов **/
             abonents_print();
             break;
-        case 5:
+        case 5: /** Очистка и выход из цикла **/
             abonents_clear();
             break;
-        default:
+        default: /** Вывод ошибки номера **/
             print_error_id();
             break;
         }
