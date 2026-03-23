@@ -26,7 +26,7 @@
 ```bash
 make                 # part1 и my_mc
 make run             # по умолчанию запуск my_mc
-make run-my_mc       # только файловый менеджер (опционально каталог: ./bin/my_mc /tmp)
+make run-my_mc       # только файловый менеджер
 make run-part1       # только задание с файлом
 make clean           # удалить bin/
 ```
@@ -40,5 +40,4 @@ make clean           # удалить bin/
 ## Проверка (п.1)
 ```bash
 make run-part1
-# Строка печатается задом наперед, с конца файла.
 ```
