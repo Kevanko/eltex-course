@@ -8,7 +8,6 @@
 #include <string.h>
 #include <strings.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 /* qsort */
 static int cmp_entries(const void *a, const void *b) {

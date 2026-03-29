@@ -3,7 +3,6 @@
 #include "my_mc.h"
 
 #include <locale.h>
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
