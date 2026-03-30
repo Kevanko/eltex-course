@@ -56,4 +56,12 @@ Received message: Hi!
 > 3 задание: интерпретатор поддерживает одну конструкцию с `|`
 ```bash
 make run-3
+gcc -Wall -Wextra -Werror -std=c11 src/3.c -o bin/3
+./bin/3
+mini-bash> ls -la | grep 4096
+drwxrwxr-x  4 nm nm 4096 мар 30 10:22 .
+drwxrwxr-x 14 nm nm 4096 мар 30 10:25 ..
+drwxrwxr-x  2 nm nm 4096 мар 30 10:26 bin
+drwxrwxr-x  2 nm nm 4096 мар 30 08:47 src
+mini-bash>    
 ```
