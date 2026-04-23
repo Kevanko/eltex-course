@@ -51,44 +51,6 @@ make
 make clean
 ```
 
-## Запуск
-
-### 1 задание
-
-POSIX shared memory:
-
-```bash
-make run-posix-server
-make run-posix-client
-```
-
-System V shared memory:
-
-```bash
-make run-sysv-server
-make run-sysv-client
-```
-
-### 2 задание
-
-Сначала запускается сервер чата:
-
-```bash
-make run-chat-server
-```
-
-Потом в одном или нескольких отдельных терминалах запускаются клиенты:
-
-```bash
-make run-chat-client
-```
-
-Выход из клиента:
-
-```text
-/exit
-```
-
 ## Как сделано 1 задание
 
 ### POSIX
