@@ -9,25 +9,6 @@
 
 #include "chat_ui.h"
 
-bool chat_ui_terminal_supported(void)
-{
-    const char *term = getenv("TERM");
-
-    if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)) {
-        fprintf(stderr, "ncurses requires an interactive terminal\n");
-        return false;
-    }
-
-    if (term == NULL || strcmp(term, "dumb") == 0) {
-        fprintf(stderr, "Unsupported TERM for ncurses: %s\n",
-                term == NULL ? "(null)" : term);
-        fprintf(stderr, "Run in a normal terminal or set TERM=xterm-256color\n");
-        return false;
-    }
-
-    return true;
-}
-
 int chat_ui_init(void)
 {
     if (initscr() == NULL) {

@@ -9,7 +9,6 @@
 
 #define CHAT_UI_LINE_LENGTH CHAT_LINE_LENGTH
 
-bool chat_ui_terminal_supported(void);
 int chat_ui_init(void);
 void chat_ui_shutdown(void);
 int chat_ui_prompt_name(char *name, size_t size, pid_t default_pid);

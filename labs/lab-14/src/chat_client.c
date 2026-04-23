@@ -303,10 +303,6 @@ int main(void)
 
     client_state_init(&state);
 
-    if (!chat_ui_terminal_supported()) {
-        goto cleanup;
-    }
-
     if (chat_ui_init() == -1) {
         goto cleanup;
     }
