@@ -88,6 +88,7 @@ static int client_find_user(const ClientState *state, const char *name)
     return -1;
 }
 
+// Вызывается только при уже взятом message_lock.
 static void client_add_user_locked(ClientState *state, const char *name)
 {
     if (name[0] == '\0' || client_find_user(state, name) != -1) {
@@ -101,6 +102,7 @@ static void client_add_user_locked(ClientState *state, const char *name)
     }
 }
 
+// Вызывается только при уже взятом message_lock.
 static void client_remove_user_locked(ClientState *state, const char *name)
 {
     int index = client_find_user(state, name);
@@ -118,6 +120,7 @@ static void client_remove_user_locked(ClientState *state, const char *name)
     state->users[state->user_count][0] = '\0';
 }
 
+// Достает имя из строк вида "<name> joined/left the chat".
 static bool client_extract_name_with_suffix(const char *text,
                                             const char *suffix,
                                             char *name,
@@ -143,6 +146,7 @@ static bool client_extract_name_with_suffix(const char *text,
     return true;
 }
 
+// Достает имя отправителя из строки вида "<name>: <text>".
 static bool client_extract_sender_name(const char *text, char *name, size_t size)
 {
     const char *separator = strstr(text, ": ");
@@ -162,6 +166,7 @@ static bool client_extract_sender_name(const char *text, char *name, size_t size
     return true;
 }
 
+// Обрабатывает служебные сообщения со снимком списка пользователей.
 static void client_process_control_message(ClientState *state, const char *text)
 {
     pthread_mutex_lock(&state->message_lock);
