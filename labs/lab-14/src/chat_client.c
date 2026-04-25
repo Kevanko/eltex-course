@@ -82,6 +82,7 @@ static void client_push_message(ClientState *state, const char *text)
     pthread_mutex_unlock(&state->state_lock);
 }
 
+// Копирует состояние комнаты, пока защищены shared memory и локальное состояние.
 static void client_copy_room_state_locked(ClientState *state)
 {
     state->message_count = state->room->message_count;
@@ -96,6 +97,7 @@ static void client_copy_room_state_locked(ClientState *state)
     }
 }
 
+// Обновляет локальный снимок только если сервер изменил версию комнаты.
 static void client_refresh_from_room(ClientState *state)
 {
     if (sem_wait(&state->room->lock) == -1) {
@@ -165,6 +167,7 @@ static int client_connect(ClientState *state)
     return 0;
 }
 
+// Кладет команду клиента в FIFO-очередь внутри shared memory.
 static int client_send_command(ClientState *state, int command, const char *text)
 {
     int result = -1;

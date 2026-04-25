@@ -45,6 +45,7 @@ static int room_find_user(const ChatRoom *room, pid_t pid)
     return -1;
 }
 
+// Вызывается только при уже взятом room->lock.
 static void room_add_message_locked(ChatRoom *room, const char *text)
 {
     if (room->message_count < CHAT_MAX_MESSAGES) {
@@ -59,6 +60,7 @@ static void room_add_message_locked(ChatRoom *room, const char *text)
     }
 }
 
+// Вызывается только при уже взятом room->lock.
 static void room_add_user_locked(ChatRoom *room, pid_t pid, const char *name)
 {
     if (room->user_count >= CHAT_MAX_CLIENTS) {
@@ -71,6 +73,7 @@ static void room_add_user_locked(ChatRoom *room, pid_t pid, const char *name)
     ++room->user_count;
 }
 
+// Вызывается только при уже взятом room->lock.
 static void room_remove_user_locked(ChatRoom *room, int index)
 {
     if (index < 0 || index >= room->user_count) {
@@ -87,6 +90,7 @@ static void room_remove_user_locked(ChatRoom *room, int index)
     room->users[room->user_count].name[0] = '\0';
 }
 
+// Забирает следующую команду из FIFO-очереди в shared memory.
 static int room_pop_command_locked(ChatRoom *room, ChatRequest *request)
 {
     if (room->command_count == 0) {

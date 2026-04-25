@@ -1,6 +1,5 @@
 #define _POSIX_C_SOURCE 200809L
 
-#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/ipc.h>
@@ -15,12 +14,6 @@ enum SysvSemaphoreIndex {
     SYSV_SEM_CLIENT_READY = 1
 };
 
-union semun {
-    int val;
-    struct semid_ds *buf;
-    unsigned short *array;
-};
-
 static int semaphore_wait(int semid, unsigned short sem_num)
 {
     struct sembuf operation = {
@@ -29,13 +22,7 @@ static int semaphore_wait(int semid, unsigned short sem_num)
         .sem_flg = 0
     };
 
-    while (semop(semid, &operation, 1) == -1) {
-        if (errno != EINTR) {
-            return -1;
-        }
-    }
-
-    return 0;
+    return semop(semid, &operation, 1);
 }
 
 static int semaphore_post(int semid, unsigned short sem_num)
@@ -56,7 +43,7 @@ int main(void)
     key_t key;
     key_t sem_key;
     SysvExchangeMemory *memory;
-    union semun arg = {0};
+    unsigned short sem_values[2] = {0, 0};
 
     key = ftok(SYSV_SHM_KEY_PATH, SYSV_EXCHANGE_KEY_ID);
     if (key == -1) {
@@ -84,46 +71,45 @@ int main(void)
         return 1;
     }
 
-    arg.val = 0;
-    if (semctl(semid, SYSV_SEM_SERVER_READY, SETVAL, arg) == -1 ||
-        semctl(semid, SYSV_SEM_CLIENT_READY, SETVAL, arg) == -1) {
+    if (semctl(semid, 0, SETALL, sem_values) == -1) {
         perror("semctl");
-        shmctl(shmid, IPC_RMID, NULL);
         semctl(semid, 0, IPC_RMID);
+        shmctl(shmid, IPC_RMID, NULL);
         return 1;
     }
 
     memory = shmat(shmid, NULL, 0);
     if (memory == (void *)-1) {
         perror("shmat");
-        shmctl(shmid, IPC_RMID, NULL);
         semctl(semid, 0, IPC_RMID);
+        shmctl(shmid, IPC_RMID, NULL);
         return 1;
     }
 
     memset(memory, 0, sizeof(*memory));
     snprintf(memory->server_text, sizeof(memory->server_text), "Hi!");
+
     if (semaphore_post(semid, SYSV_SEM_SERVER_READY) == -1) {
         perror("semop post");
         shmdt(memory);
-        shmctl(shmid, IPC_RMID, NULL);
         semctl(semid, 0, IPC_RMID);
+        shmctl(shmid, IPC_RMID, NULL);
         return 1;
     }
 
     if (semaphore_wait(semid, SYSV_SEM_CLIENT_READY) == -1) {
         perror("semop wait");
         shmdt(memory);
-        shmctl(shmid, IPC_RMID, NULL);
         semctl(semid, 0, IPC_RMID);
+        shmctl(shmid, IPC_RMID, NULL);
         return 1;
     }
 
     printf("Client message: %s\n", memory->client_text);
 
     shmdt(memory);
-    shmctl(shmid, IPC_RMID, NULL);
     semctl(semid, 0, IPC_RMID);
+    shmctl(shmid, IPC_RMID, NULL);
 
     return 0;
 }
