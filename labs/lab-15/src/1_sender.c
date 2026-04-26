@@ -6,24 +6,21 @@
 
 int main(int argc, char *argv[])
 {
-    long pid;
-
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <pid>\n", argv[0]);
-        return 1;
+    if(argc != 2) {
+        fprintf(stderr, "Usage: %s <integer>\n", argv[0]);
+        return EXIT_FAILURE;
     }
 
-    pid = strtol(argv[1], NULL, 10);
+    pid_t pid = (pid_t)strtol(argv[1], NULL, 10);
     if (pid <= 0) {
-        fprintf(stderr, "Invalid pid\n");
-        return 1;
+        fprintf(stderr, "Invalid PID: %s\n", argv[1]);
+        return EXIT_FAILURE;
     }
 
-    if (kill((pid_t)pid, SIGUSR1) == -1) {
-        perror("kill");
-        return 1;
+    if(kill(pid, SIGUSR1) == -1) {
+        perror("Failed to send signal");
+        return EXIT_FAILURE;
     }
 
-    printf("SIGUSR1 sent to PID %ld\n", pid);
-    return 0;
+    return EXIT_SUCCESS;
 }

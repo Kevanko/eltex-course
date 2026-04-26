@@ -22,7 +22,11 @@ run-1-receiver: bin/1_receiver
 	./$<
 
 run-1-sender: bin/1_sender
-	./$<
+	@if [ -z "$(PID)" ]; then \
+		echo "Usage: make run-1-sender PID=<pid>"; \
+		exit 1; \
+	fi
+	./$< $(PID)
 
 run-2: bin/2
 	./$<

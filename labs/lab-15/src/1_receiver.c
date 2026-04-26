@@ -1,34 +1,34 @@
 #define _POSIX_C_SOURCE 200809L
 
-#include <signal.h>
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include <signal.h>
 #include <unistd.h>
+#include <errno.h>
 
-static void handle_sigusr1(int signo)
-{
-    (void)signo;
-    printf("Received SIGUSR1\n");
-    fflush(stdout);
+void sig_handler(int sig_num, siginfo_t *info, void *args) {
+    int *param = (int*)args;
+    printf("Signal SIGUSR1! - %d %d %d\n", sig_num, *param, info->si_signo);
 }
 
-int main(void)
-{
-    struct sigaction action;
+int main(){
+    struct sigaction handler;
+    sigset_t set;
+    int ret;
 
-    memset(&action, 0, sizeof(action));
-    action.sa_handler = handle_sigusr1;
-    sigemptyset(&action.sa_mask);
+    sigemptyset(&set);
+    sigaddset(&set, SIGUSR1);
+    handler.sa_mask = set;
+    handler.sa_sigaction =sig_handler;
 
-    if (sigaction(SIGUSR1, &action, NULL) == -1) {
-        perror("sigaction");
-        return 1;
+    ret = sigaction(SIGUSR1, &handler, NULL);
+    if(ret < 0) {
+        perror("Can't set signal handler!");
+        exit(EXIT_FAILURE);
     }
-
-    printf("Receiver PID: %ld\n", (long)getpid());
-    printf("Waiting for SIGUSR1...\n");
-
-    while (1) {
+    printf("Waiting for signal... PID: %ld\n", (long)getpid());
+    while(1) {
         pause();
     }
+    exit(EXIT_SUCCESS);
 }

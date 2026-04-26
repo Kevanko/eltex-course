@@ -43,90 +43,6 @@ lab-15/
 make
 ```
 
-Очистить бинарные файлы:
-
-```bash
-make clean
-```
-
-## Запуск
-
-### 1 задание
-
-В одном терминале:
-
-```bash
-make run-1-receiver
-```
-
-Во втором терминале:
-
-```bash
-./bin/1_sender <pid>
-```
-
-Либо через системную утилиту:
-
-```bash
-kill -USR1 <pid>
-```
-
-### 2 задание
-
-В одном терминале:
-
-```bash
-make run-2
-```
-
-Проверка через утилиту `kill`:
-
-```bash
-kill -INT <pid>
-```
-
-### 3 задание
-
-В одном терминале:
-
-```bash
-make run-3
-```
-
-Во втором терминале:
-
-```bash
-./bin/1_sender <pid>
-```
-
-или:
-
-```bash
-kill -USR1 <pid>
-```
-
-## Как реализовано
-
-### 1 задание
-
-- `1_receiver.c` переопределяет обработчик `SIGUSR1` через `sigaction`;
-- после установки обработчика программа печатает свой `PID` и ждёт сигнал;
-- при получении `SIGUSR1` вызывается функция-обработчик и печатается сообщение;
-- `1_sender.c` отправляет сигнал `SIGUSR1` другому процессу через `kill`.
-
-### 2 задание
-
-- `2.c` создаёт маску сигналов;
-- добавляет в неё `SIGINT`;
-- блокирует `SIGINT` через `sigprocmask`;
-- после этого программа уходит в бесконечное ожидание.
-
-### 3 задание
-
-- `3.c` заранее блокирует `SIGUSR1` через `sigprocmask`;
-- затем в бесконечном цикле ждёт сигнал через `sigwait`;
-- при получении `SIGUSR1` выводит сообщение и переходит на следующую итерацию.
-
 ## Пример работы
 
 ### 1 задание
@@ -134,13 +50,13 @@ kill -USR1 <pid>
 ```text
 Terminal 1:
 $ make run-1-receiver
-Receiver PID: 12345
-Waiting for SIGUSR1...
-Received SIGUSR1
+Waiting for signal... PID: 27447
+Signal SIGUSR1! - 10 7 1
 
 Terminal 2:
-$ ./bin/1_sender 12345
-SIGUSR1 sent to PID 12345
+$ ./bin/1_sender 27447
+or
+$ kill -10 27447
 ```
 
 ### 2 задание
@@ -148,11 +64,14 @@ SIGUSR1 sent to PID 12345
 ```text
 Terminal 1:
 $ make run-2
-SIGINT blocker PID: 12346
+SIGINT blocker PID: 28952
 SIGINT is blocked. Waiting...
+^C^C^C
+^C^C
+Убито
 
 Terminal 2:
-$ kill -INT 12346
+$ kill -9 28952
 ```
 
 ### 3 задание
@@ -160,10 +79,10 @@ $ kill -INT 12346
 ```text
 Terminal 1:
 $ make run-3
-sigwait loop PID: 12347
+sigwait loop PID: 29171
 Waiting for SIGUSR1...
 Received SIGUSR1
 
 Terminal 2:
-$ kill -USR1 12347
+$ kill -10 29171
 ```
